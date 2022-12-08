@@ -6,6 +6,9 @@ import requests
 
 
 
+calculations_dict = {}
+
+
 def gather_mama(cur, conn):
 
     cur.execute('select joke from YoMama')
@@ -71,9 +74,6 @@ def join_harry_id(termId_list, cur, conn):
 
 
 
-def create_calculations_table(cur, conn):
-    cur.execute('create table if not exists Calculations(percent_holiday_jokes TEXT, percent_total_hp_jokes_in_yomama TEXT, percent_hp_jokes_character TEXT, percent_hp_jokes_species TEXT, percent_hp_jokes_books TEXT)')
-    conn.commit()
 
 
 def calculate_harry_percentages(cur, conn):
@@ -114,8 +114,13 @@ def calculate_harry_percentages(cur, conn):
 
     percent_book_jokes = total_book_jokes / total_harry_jokes * 100
 
-    conn.execute('insert into Calculations (percent_total_hp_jokes_in_yomama, percent_hp_jokes_character, percent_hp_jokes_species, percent_hp_jokes_books) values(?,?,?,?)', (percent_harry_jokes, percent_character_jokes, percent_species_jokes, percent_book_jokes))
-    conn.commit()
+
+    calculations_dict["percent_harry_jokes"] = percent_harry_jokes
+    calculations_dict["percent_character_jokes"] = percent_character_jokes
+    calculations_dict["percent_species_jokes"] = percent_species_jokes
+    calculations_dict["percent_book_jokes"] = percent_book_jokes
+
+
 
 
 def clean_holiday_data(holidays):
@@ -171,8 +176,7 @@ def get_holiday_jokes(cur, conn, mama, holiday):
                 holiday_id = cur.fetchall()
                 holiday_id = holiday_id[0][0]
 
-                conn.execute('insert into HolidaysxYoMama(joke_id, holiday_id) values (?,?)', (joke_id,holiday_id))
-                conn.commit()
+
 
 
 def calculate_holiday_percentages(cur, conn):
@@ -190,11 +194,20 @@ def calculate_holiday_percentages(cur, conn):
 
     percent_holiday_jokes = total_holiday_jokes / total_jokes * 100 
 
-    cur.execute('UPDATE Calculations SET percent_holiday_jokes = ?', (percent_holiday_jokes,))
-    conn.commit()
+    calculations_dict["percent_holiday_jokes"] = percent_holiday_jokes
+    return calculations_dict
 
 
 
+
+def write_calculations():
+    f = open("calculations.txt", "w")
+
+    for item in calculations_dict:
+        f.write(item + ": " + str(calculations_dict[item]))
+        f.write('\n')
+
+    f.close()
 
 
 

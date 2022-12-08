@@ -43,13 +43,13 @@ def main():
 
          termID_list = calculations.get_harry_jokes(cur, conn, mama,harry)
          calculations.join_harry_id(termID_list, cur,conn)
-         calculations.create_calculations_table(cur, conn)
          calculations.calculate_harry_percentages(cur, conn)
 
          holidays = calculations.gather_holidays(cur, conn)
 
          calculations.get_holiday_jokes(cur,conn, mama, holidays)
-         calculations.calculate_holiday_percentages(cur, conn)
+         calcs = calculations.calculate_holiday_percentages(cur, conn)
+         calculations.write_calculations()
 
 
 
