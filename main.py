@@ -5,6 +5,7 @@ import os
 import requests
 import finalproject
 import calculations
+import visualizations
 
 HOLIDAY_URL = 'https://holidayapi.com/v1/holidays?pretty&key=1e2c4690-615b-421a-a1c7-cb9cd52ad2b0&country=US&year=2021'
 MAMA_URL = 'https://raw.githubusercontent.com/Fadyazmy/yo-mamma/master/yo_mama_jokes.txt'
@@ -50,12 +51,9 @@ def main():
          calculations.get_holiday_jokes(cur,conn, mama, holidays)
          calcs = calculations.calculate_holiday_percentages(cur, conn)
          calculations.write_calculations()
-
-
-
-        
-        
-    
+         visualizations.hp_type_pie(calcs)
+         visualizations.in_yomama_pie(calcs)
+         visualizations.hp_vs_holiday_bar(calcs)
 
 
 

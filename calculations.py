@@ -114,7 +114,7 @@ def calculate_harry_percentages(cur, conn):
 
     percent_book_jokes = total_book_jokes / total_harry_jokes * 100
 
-
+    calculations_dict["total_harry_jokes"] = total_harry_jokes
     calculations_dict["percent_harry_jokes"] = percent_harry_jokes
     calculations_dict["percent_character_jokes"] = percent_character_jokes
     calculations_dict["percent_species_jokes"] = percent_species_jokes
@@ -177,6 +177,10 @@ def get_holiday_jokes(cur, conn, mama, holiday):
                 holiday_id = holiday_id[0][0]
 
 
+                conn.execute('insert into HolidaysxYoMama(joke_id, holiday_id) values (?,?)', (joke_id,holiday_id))
+                conn.commit()
+
+
 
 
 def calculate_holiday_percentages(cur, conn):
@@ -194,6 +198,7 @@ def calculate_holiday_percentages(cur, conn):
 
     percent_holiday_jokes = total_holiday_jokes / total_jokes * 100 
 
+    calculations_dict["total_holiday_jokes"] = total_holiday_jokes
     calculations_dict["percent_holiday_jokes"] = percent_holiday_jokes
     return calculations_dict
 
