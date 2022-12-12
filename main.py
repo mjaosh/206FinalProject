@@ -33,12 +33,16 @@ def main():
 
     #Put data in prospective tables
     if count != 500:
+        print("Gathering data...")
         finalproject.get_holiday_data(cur, conn, HOLIDAY_URL)
         finalproject.get_mama_data(cur,conn, MAMA_URL)
         finalproject.get_harry_data(cur,conn)
 
     elif count == 500:
+
+
         #Calculations
+         print("Database finished. Doing Calculations and Visualizations now.")
          mama = calculations.gather_mama(cur, conn)
          harry = calculations.gather_harry(cur,conn)
 

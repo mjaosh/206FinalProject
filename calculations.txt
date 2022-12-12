@@ -1,0 +1,7 @@
+total_harry_jokes: 16
+percent_harry_jokes: 3.2
+percent_character_jokes: 18.75
+percent_species_jokes: 62.5
+percent_book_jokes: 18.75
+total_holiday_jokes: 24
+percent_holiday_jokes: 4.8

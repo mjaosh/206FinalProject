@@ -16,7 +16,7 @@ def gather_mama(cur, conn):
     return x
 
 def gather_harry(cur, conn): 
-    cur.execute('select term, term_type from HarryPotter')
+    cur.execute('select term from HarryPotter')
     x = cur.fetchall() 
     return x
 
@@ -34,12 +34,10 @@ def get_harry_jokes(cur, conn, mama, harry):
         joke = joke[0].lower()
 
         for term in harry: 
-            new_term = term[0].lower()
+            term = term[0].lower()
             
-            if (term in joke and term != 'dog' and term != 'cat' and term != 'owl' and term != 'ted') or (term[1] == 1 and new_term.split()[-1] in joke): 
-                #insert into table
-                print(term)
-
+            if term in joke and term != 'dog' and term != 'cat' and term != 'owl' and term != 'ted': 
+                
                 cur.execute('SELECT joke_id from YoMama where joke = ?', (joke,))
                 conn.commit()
 
@@ -47,7 +45,7 @@ def get_harry_jokes(cur, conn, mama, harry):
                 joke_id = joke_id[0][0]
     
 
-                cur.execute('SELECT term_id from HarryPotter where term = ?', (new_term,))
+                cur.execute('SELECT term_id from HarryPotter where term = ?', (term,))
                 conn.commit()
 
                 term_id = cur.fetchall()
