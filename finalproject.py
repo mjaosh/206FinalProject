@@ -5,10 +5,6 @@ import os
 import requests
 
 
-HOLIDAY_URL = 'https://holidayapi.com/v1/holidays?pretty&key=1e2c4690-615b-421a-a1c7-cb9cd52ad2b0&country=US&year=2021'
-HARRY_CHARACTERS_URL = 'https://fedeperin-harry-potter-api-en.herokuapp.com/db'
-MAMA_URL = 'https://yomamma-api.herokuapp.com/jokes?count=500'
-
 
 # Create Database
 def setUpDatabase(db_name):

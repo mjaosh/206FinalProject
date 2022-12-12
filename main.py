@@ -40,7 +40,6 @@ def main():
 
     elif count == 500:
 
-
         #Calculations
          print("Database finished. Doing Calculations and Visualizations now.")
          mama = calculations.gather_mama(cur, conn)
